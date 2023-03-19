@@ -46,7 +46,7 @@
                                 <v-icon left>mdi-close</v-icon>
                                 <span class="text-caption">Remove</span>
                             </v-btn>
-                            <v-btn color="green" class="ma-0" text small tile>
+                            <v-btn color="green" class="ma-0" text small tile @click="SendReadData(SelectedBook)">
                                 <v-icon left>mdi-book-open</v-icon>
                                 <span class="text-caption">Read</span>
                             </v-btn>
@@ -83,6 +83,10 @@
         contentStrip(content) {
             const c = content.replace(/(<([^>]+)>)/gi, '')
             return (c.slice(0, 95) + '...')
+        },
+
+        SendReadData(e) {
+            this.$emit('ReadData', e)
         },
 
         /* getMyBooks() {

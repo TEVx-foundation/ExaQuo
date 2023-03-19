@@ -42,42 +42,50 @@
             </v-btn-toggle>
           </center>
 
-          <MyBooks class="ma-0" :data="BooksList" v-if="BooksList !== null"></MyBooks>
-          <ExploreBooks class="ma-0" @updateReadLater="updateList"></ExploreBooks>
+          <MyBooks class="ma-0" :data="BooksList" v-if="BooksList !== null" @ReadData="OpenBook"></MyBooks>
+          <ExploreBooks class="ma-0" @updateReadLater="updateList" @ReadData="OpenBook"></ExploreBooks>
 
         </v-card>
 
+        <v-dialog
+          v-model="CurrentBookOpen"
+          fullscreen v-if="CurrentBookOpen"
+          hide-overlay
+          transition="dialog-bottom-transition"
+          max-width="290"
+        >
+          <v-card class="pb-2 justify-center" justify="center">
+            <v-toolbar
+              dark tile flat
+            >
+              <v-btn
+                icon
+                dark
+                @click="CurrentBookOpen = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-toolbar-title flat class="text-content text-body-1">{{ CurrentBook.title }}</v-toolbar-title>
+              <v-spacer></v-spacer>
+                <v-btn
+                  icon
+                  dark
+                >
+                  <v-icon>mdi-launch</v-icon>
+                </v-btn>
+            </v-toolbar>
 
+            <center>
+              <v-avatar size="150" class="mx-auto my-8" rounded>
+                  <v-img src="book.png"></v-img>
+              </v-avatar>
+            </center>
 
-        <!-- v-card-title class="headline font-weight-light">
-          Testing out VueJS along with nuxt framework.
-        </v-card-title>
-        <v-card-text>
-          <p>{{ twoWay }}</p>
-          <v-text-field
-            label="Two-way binding" v-model="twoWay"
-          ></v-text-field>
-          <br>
-          <p>{{ swapCase }}</p>
-          <v-text-field
-            label="Computed Value" v-model="computed"
-          ></v-text-field>
-          <br>
-          <CustomComponent :title="componentProp"></CustomComponent>
-          <v-text-field
-            label="Component prop" v-model="componentProp"
-          ></v-text-field>
-          <br>
-          <p>
-            <nuxt-link :to="{ name: 'dynamic-id', params: {id: customLink}}">
-              A router link
-            </nuxt-link>
-          </p>
-          <v-text-field
-            label="Component prop" v-model="customLink"
-          ></v-text-field>
-          <br>
-        </v-card-text -->
+            <v-card-text class="text-content text-body-2" v-html="contentStrip(CurrentBook.content)">
+            </v-card-text>        
+
+          </v-card>
+        </v-dialog>
 
       </v-card>
     </v-col>
@@ -90,6 +98,8 @@ export default {
   data () {
       return {
         category: null,
+        CurrentBook: null,
+        CurrentBookOpen: false,
         BooksList: [],
       }
   },
@@ -99,10 +109,20 @@ export default {
   },
 
   methods: {
-    updateList(e) {
+      updateList(e) {
         this.BooksList.push(e)
         localStorage.setItem("PersonalReadList", JSON.stringify(this.BooksList))
-      }
+      },
+
+      OpenBook(e) {
+        this.CurrentBook = e
+        this.CurrentBookOpen = true
+      },
+
+      contentStrip(content) {
+            const c = content.replace(/(<([^>]+)>)/gi, '')
+            return (c)
+      },
     },
   
     mounted() {

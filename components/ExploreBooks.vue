@@ -24,7 +24,7 @@
                                 <v-icon left>mdi-bookmark-outline</v-icon>
                                 <span class="text-caption">Later</span>
                             </v-btn>
-                            <v-btn color="green" class="ma-0" text small tile>
+                            <v-btn color="green" class="ma-0" text small tile @click="SendReadData(item)">
                                 <v-icon left>mdi-book-open</v-icon>
                                 <span class="text-caption">Read</span>
                             </v-btn>
@@ -73,6 +73,10 @@
 
         sendReadLater(e) {
             this.$emit('updateReadLater', e)
+        },
+
+        SendReadData(e) {
+            this.$emit('ReadData', e)
         },
 
         toggleReadLater(e) {
