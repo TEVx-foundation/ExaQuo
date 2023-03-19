@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">vue-nuxt</string>
+    <string name="title_activity_main">vue-nuxt</string>
+    <string name="package_name">vue.nuxt</string>
+    <string name="custom_url_scheme">vue.nuxt</string>
+</resources>

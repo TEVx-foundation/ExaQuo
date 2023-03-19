@@ -42,7 +42,7 @@
 
     <v-layout class="overflow-visible" style="height: 56px;">
     <v-bottom-navigation
-      active mode="shift"
+      mode="shift" fixed
       color="primary"
     >
       <v-btn>

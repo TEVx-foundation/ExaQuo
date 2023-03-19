@@ -6,9 +6,19 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "ionic:build": "npm run build",
+    "ionic:serve": "npm run start"
   },
   "dependencies": {
+    "@capacitor/android": "4.7.1",
+    "@capacitor/app": "4.1.1",
+    "@capacitor/cli": "4.7.1",
+    "@capacitor/core": "4.7.1",
+    "@capacitor/haptics": "4.1.0",
+    "@capacitor/keyboard": "4.1.1",
+    "@capacitor/status-bar": "4.1.1",
+    "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "vue": "^2.7.10",

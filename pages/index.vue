@@ -7,10 +7,43 @@
 
           <v-card-text>
             <div class="text-content">Good Morning</div>
-            <p class="text-caption text--primary text-content">
-              ExaQuo always surpises you with content
+            <p class="text-body-1 text--primary text-content mt-1">
+              ExaQuo stories to your fingertips
             </p>
           </v-card-text>
+
+            <center>
+            <v-btn-toggle
+              borderless class="mx-auto"
+            >
+              <v-btn value="left" class="px-4">
+                <span class="-hidden-sm-and-down text-caption">My List</span>
+
+                <v-icon right>
+                  mdi-filter-variant
+                </v-icon>
+              </v-btn>
+
+              <v-btn value="center" class="px-5">
+                <span class="-hidden-sm-and-down text-caption">Saved</span>
+
+                <v-icon right>
+                  mdi-book
+                </v-icon>
+              </v-btn>
+
+              <v-btn value="right" class="px-4">
+                <span class="-hidden-sm-and-down text-caption">To-Read</span>
+
+                <v-icon right>
+                  mdi-moon-new
+                </v-icon>
+              </v-btn>
+            </v-btn-toggle>
+          </center>
+
+          <MyBooks class="ma-0" :data="BooksList" v-if="BooksList !== null"></MyBooks>
+          <ExploreBooks class="ma-0" @updateReadLater="updateList"></ExploreBooks>
 
         </v-card>
 
@@ -56,18 +89,25 @@ export default {
   name: 'IndexPage',
   data () {
       return {
-        twoWay: 'This is two-way binding, changing the value of one changes the other values as well.',
-        computed: 'This is a computed data, this automatically changes the case of the text.',
-        componentProp: 'Argument to component',
-        customLink: 'Passing-data',
         category: null,
+        BooksList: [],
       }
   },
+
   computed: {
-    swapCase() {
-      return this.computed.toUpperCase()
-    }
+    //
   },
+
+  methods: {
+    updateList(e) {
+        this.BooksList.push(e)
+        localStorage.setItem("PersonalReadList", JSON.stringify(this.BooksList))
+      }
+    },
+  
+    mounted() {
+      this.BooksList = JSON.parse(localStorage.getItem("PersonalReadList") || '[]')
+    }
 }
 </script>
 
