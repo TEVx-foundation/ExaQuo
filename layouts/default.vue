@@ -2,7 +2,6 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
       app
@@ -24,20 +23,46 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
+
+    <!-- v-app-bar flat
       :clipped-left="clipped"
-      fixed
-      app
+      fixed color="transparent"
+      app class="my-2"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
-    </v-app-bar>
+    </v-app-bar -->
+
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
+
+    <v-layout class="overflow-visible" style="height: 56px;">
+    <v-bottom-navigation
+      active mode="shift"
+      color="primary"
+    >
+      <v-btn>
+        <v-icon>mdi-view-dashboard</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <v-icon>mdi-bell-outline</v-icon>
+      </v-btn>
+
+      <v-btn @click.stop="drawer = !drawer">
+        <v-icon>mdi-square-rounded-badge-outline</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+  </v-layout>
+
   </v-app>
 </template>
 
@@ -52,7 +77,7 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'ExaQuo',
           to: '/'
         },
         {
@@ -62,7 +87,7 @@ export default {
         }
       ],
       right: true,
-      title: 'Vue development'
+      title: 'ExaQuo'
     }
   }
 }

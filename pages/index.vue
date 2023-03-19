@@ -1,8 +1,22 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-card tile flat>
-        <v-card-title class="headline font-weight-light">
+      <v-card tile flat color="transparent">
+
+        <v-card color="transparent" class="ma-0" tile flat>
+
+          <v-card-text>
+            <div class="text-content">Good Morning</div>
+            <p class="text-caption text--primary text-content">
+              ExaQuo always surpises you with content
+            </p>
+          </v-card-text>
+
+        </v-card>
+
+
+
+        <!-- v-card-title class="headline font-weight-light">
           Testing out VueJS along with nuxt framework.
         </v-card-title>
         <v-card-text>
@@ -30,7 +44,8 @@
             label="Component prop" v-model="customLink"
           ></v-text-field>
           <br>
-        </v-card-text>
+        </v-card-text -->
+
       </v-card>
     </v-col>
   </v-row>
@@ -45,6 +60,7 @@ export default {
         computed: 'This is a computed data, this automatically changes the case of the text.',
         componentProp: 'Argument to component',
         customLink: 'Passing-data',
+        category: null,
       }
   },
   computed: {
@@ -54,3 +70,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.text-content {
+  font-family: 'Montserrat', sans-serif !important; 
+}
+</style>
