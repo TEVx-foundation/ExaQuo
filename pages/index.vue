@@ -48,7 +48,7 @@
             </v-btn-toggle>
           </center>
 
-          <MyBooks class="ma-0" :data="BooksList" v-if="BooksList !== null" @ReadData="OpenBook"></MyBooks>
+          <MyBooks class="ma-0" :data="BooksList" v-if="BooksList.length !== 0" @ReadData="OpenBook"></MyBooks>
           <ExploreBooks class="ma-0" :data="BooksListID" @updateReadLater="updateList" @ReadData="OpenBook"></ExploreBooks>
 
         </v-card>

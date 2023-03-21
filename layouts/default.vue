@@ -40,10 +40,8 @@
       </v-container>
     </v-main>
 
-    <v-layout class="overflow-visible" style="height: 56px;">
     <v-bottom-navigation
-      fixed
-      color="primary"
+      fixed color="primary"
     >
       <v-btn color="#f9784b">
         <v-icon>mdi-view-dashboard</v-icon>
@@ -61,7 +59,6 @@
         <v-icon color="#f9784b">mdi-square-rounded-badge-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
-  </v-layout>
 
   </v-app>
 </template>
