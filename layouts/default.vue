@@ -41,7 +41,7 @@
     </v-main>
 
     <v-bottom-navigation
-      fixed color="primary"
+      fixed color="primary" grow
     >
       <v-btn color="#f9784b">
         <v-icon>mdi-view-dashboard</v-icon>
