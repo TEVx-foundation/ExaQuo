@@ -6,7 +6,7 @@
       fixed
       app
     >
-      <v-list>
+      <v-list shaped>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -41,7 +41,7 @@
     </v-main>
 
     <v-bottom-navigation
-      fixed color="primary" grow
+      fixed grow
     >
       <v-btn color="#f9784b">
         <v-icon>mdi-view-dashboard</v-icon>
@@ -73,7 +73,7 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-book-open-variant',
           title: 'ExaQuo',
           to: '/'
         },

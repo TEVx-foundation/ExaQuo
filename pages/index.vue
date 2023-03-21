@@ -7,7 +7,7 @@
 
           <v-list-item class="ma-0 pa-0">
             <v-card-text>
-              <div class="text-content">Good Morning</div>
+              <div class="text-content">{{ greetings }}</div>
               <p class="text-body-1 text--primary text-content mt-1">
                 Stories to your fingertips
               </p>
@@ -133,6 +133,7 @@ export default {
   data () {
       return {
         category: null,
+        greetings: "",
         CurrentBook: null,
         CurrentBookOpen: false,
         BooksList: [],
@@ -166,6 +167,17 @@ export default {
     },
   
     mounted() {
+      var today = new Date()
+      var curHr = today.getHours()
+
+      if (curHr < 12) {
+        this.greetings = "Good Morning"
+      } else if (curHr < 18) {
+        this.greetings = "Good Afternoon"
+      } else {
+        this.greetings = "Good Night"
+      }
+
       this.BooksList = JSON.parse(localStorage.getItem("PersonalReadList") || '[]')
       this.BooksListID = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
     }
