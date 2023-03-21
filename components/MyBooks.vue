@@ -3,7 +3,7 @@
         <v-list-item class="mx-0">
             <div class="text-content">My Books</div>
             <v-spacer></v-spacer>
-            <a class="text-content text-decoration-none">See More</a>
+            <a class="text-content text-decoration-none" style="color: #f9784b;">See More</a>
         </v-list-item>
 
         <v-slide-group
@@ -18,7 +18,7 @@
                 width="130"
                 @click="BookBar(item)"
                 >                    
-                    <v-avatar size="100" class="my-2 mt-4 mx-4" rounded>
+                    <v-avatar size="80" class="my-2 mt-6 mx-4" rounded>
                         <v-img src="book.png"></v-img>
                     </v-avatar>
                     <div class="text-content font-weight-bold text-body-2" v-text="item.title"></div>
@@ -32,7 +32,7 @@
             <v-row class="ma-0 px-2 pt-2">
 
                 <v-col cols="4" class="ma-0 pa-0">
-                    <v-avatar size="100" class="my-2 mt-6" rounded>
+                    <v-avatar size="100" class="my-2 mt-6 mx-2" rounded>
                         <v-img src="book.png"></v-img>
                     </v-avatar>
                 </v-col>

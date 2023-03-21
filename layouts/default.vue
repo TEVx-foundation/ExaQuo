@@ -42,23 +42,23 @@
 
     <v-layout class="overflow-visible" style="height: 56px;">
     <v-bottom-navigation
-      mode="shift" fixed
+      fixed
       color="primary"
     >
-      <v-btn>
+      <v-btn color="#f9784b">
         <v-icon>mdi-view-dashboard</v-icon>
       </v-btn>
 
       <v-btn>
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon color="#f9784b">mdi-magnify</v-icon>
       </v-btn>
 
       <v-btn>
-        <v-icon>mdi-bell-outline</v-icon>
+        <v-icon color="#f9784b">mdi-bell-outline</v-icon>
       </v-btn>
 
       <v-btn @click.stop="drawer = !drawer">
-        <v-icon>mdi-square-rounded-badge-outline</v-icon>
+        <v-icon color="#f9784b">mdi-square-rounded-badge-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-layout>

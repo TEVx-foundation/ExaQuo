@@ -3,7 +3,7 @@
         <v-list-item class="mx-0 my-4">
             <div class="text-content">Explore</div>
             <v-spacer></v-spacer>
-            <a class="text-content text-decoration-none">See Web</a>
+            <a class="text-content text-decoration-none" style="color: #f9784b;">See Web</a>
         </v-list-item>
 
         <v-card dark flat color="transparent" v-for="(item, i) in fullList" :key="i">

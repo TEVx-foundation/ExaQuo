@@ -17,9 +17,9 @@
               borderless class="mx-auto"
             >
               <v-btn value="left" class="px-4">
-                <span class="-hidden-sm-and-down text-caption">My List</span>
+                <span class="-hidden-sm-and-down text-caption" color="#784f91">My List</span>
 
-                <v-icon right>
+                <v-icon right color="#f9784b">
                   mdi-filter-variant
                 </v-icon>
               </v-btn>
@@ -27,7 +27,7 @@
               <v-btn value="center" class="px-5">
                 <span class="-hidden-sm-and-down text-caption">Saved</span>
 
-                <v-icon right>
+                <v-icon right color="#f9784b">
                   mdi-book
                 </v-icon>
               </v-btn>
@@ -35,7 +35,7 @@
               <v-btn value="right" class="px-4">
                 <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
-                <v-icon right>
+                <v-icon right color="#f9784b">
                   mdi-moon-new
                 </v-icon>
               </v-btn>
@@ -54,9 +54,9 @@
           transition="dialog-bottom-transition"
           max-width="290"
         >
-          <v-card class="pb-2 justify-center" justify="center">
+          <v-card class="pb-2 justify-center" justify="center" color="#784f91">
             <v-toolbar
-              dark tile flat
+              dark tile flat color="#784f91"
             >
               <v-btn
                 icon
@@ -76,13 +76,31 @@
             </v-toolbar>
 
             <center>
-              <v-avatar size="150" class="mx-auto my-8" rounded>
+              <v-avatar size="150" class="mx-auto my-14" rounded>
                   <v-img src="book.png"></v-img>
               </v-avatar>
+
+              
+
             </center>
 
-            <v-card-text class="text-content text-body-2" v-html="contentStrip(CurrentBook.content)">
-            </v-card-text>        
+            <v-list-item class="mx-0 my-2 justify-center">
+
+              <v-btn icon x-large class="transparent">
+                <v-icon x-large>mdi-play-circle-outline</v-icon>
+              </v-btn>
+
+              <v-card-title class="text-center justify-center">
+                <div class="text-content text-h6">{{ CurrentBook.title }}</div>
+              </v-card-title>
+            </v-list-item>
+
+
+            <v-card tile flat class="ma-0">
+              <v-card-title class="text-content">Content</v-card-title>
+              <v-card-text class="text-content text-body-2" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
+              </v-card-text>     
+            </v-card>   
 
           </v-card>
         </v-dialog>
@@ -110,8 +128,10 @@ export default {
 
   methods: {
       updateList(e) {
-        this.BooksList.push(e)
-        localStorage.setItem("PersonalReadList", JSON.stringify(this.BooksList))
+        if (this.BooksList.includes(e) === false) {
+          this.BooksList.push(e)
+          localStorage.setItem("PersonalReadList", JSON.stringify(this.BooksList))
+        }
       },
 
       OpenBook(e) {
