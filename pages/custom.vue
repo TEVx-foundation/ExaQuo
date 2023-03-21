@@ -2,12 +2,7 @@
   <v-row>
     <v-col class="text-center">
       <blockquote class="blockquote">
-        This is a custom page.
-        <footer>
-          <small>
-            This has made development alot faster.
-          </small>
-        </footer>
+        Page under development.
       </blockquote>
     </v-col>
   </v-row>

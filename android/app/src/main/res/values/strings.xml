@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">vue-nuxt</string>
-    <string name="title_activity_main">vue-nuxt</string>
-    <string name="package_name">vue.nuxt</string>
-    <string name="custom_url_scheme">vue.nuxt</string>
+    <string name="app_name">Exaquo</string>
+    <string name="title_activity_main">Exaquo</string>
+    <string name="package_name">tevx.exaquo</string>
+    <string name="custom_url_scheme">tevx.exaquo</string>
 </resources>

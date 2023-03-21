@@ -20,10 +20,16 @@
                         <div class="text-content font-weight-bold" v-text="item.title"></div>
                         <p class="text-caption text--primary text-content mt-1 -text-truncate" style="line-clamp: 2;" v-html="contentStrip(item.content)"></p>
                         <div>
-                            <v-btn color="primary" class="ma-0" text small tile @click="sendReadLater(item)">
+                            <v-btn color="primary" class="ma-0" text small tile v-if="checkLater(item.id)" @click="sendReadLater(item)">
                                 <v-icon left>mdi-bookmark-outline</v-icon>
                                 <span class="text-caption">Later</span>
                             </v-btn>
+
+                            <v-btn color="primary" class="ma-0" text small tile v-else>
+                                <v-icon left>mdi-bookmark-outline</v-icon>
+                                <span class="text-caption">Added</span>
+                            </v-btn>
+
                             <v-btn color="green" class="ma-0" text small tile @click="SendReadData(item)">
                                 <v-icon left>mdi-book-open</v-icon>
                                 <span class="text-caption">Read</span>
@@ -40,6 +46,7 @@
   <script>
     export default {
       name: 'ExploreBooks',
+      props: ['data'],
       data () {
         return {
           ReadLater: [],
@@ -63,6 +70,14 @@
                 })
             } catch (error) {
                 // this.$sentry.captureException(new Error(error))
+            }
+        },
+
+        checkLater(id) {
+            if (this.data.includes(id) === false) {
+              return true
+            } else {
+              return false
             }
         },
 

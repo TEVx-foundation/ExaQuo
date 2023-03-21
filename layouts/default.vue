@@ -82,7 +82,7 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Custom',
+          title: 'About',
           to: '/custom'
         }
       ],

@@ -1,4 +1,4 @@
-package vue.nuxt;
+package tevx.exaquo;
 
 import com.getcapacitor.BridgeActivity;
 
