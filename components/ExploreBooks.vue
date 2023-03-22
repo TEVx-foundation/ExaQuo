@@ -11,7 +11,7 @@
 
                 <v-col cols="4" class="ma-0 pa-0">
                     <v-avatar size="100" class="my-2 mt-6" rounded>
-                        <v-img src="book.png"></v-img>
+                        <v-img src="book-open.png"></v-img>
                     </v-avatar>
                 </v-col>
 

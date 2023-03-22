@@ -43,7 +43,7 @@
     <v-bottom-navigation
       fixed grow
     >
-      <v-btn color="#f9784b">
+      <v-btn color="#f9784b" class="py-6">
         <v-icon>mdi-view-dashboard</v-icon>
       </v-btn>
 

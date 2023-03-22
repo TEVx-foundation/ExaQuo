@@ -60,9 +60,9 @@
           transition="dialog-bottom-transition"
           max-width="290"
         >
-          <v-card class="pb-2 justify-center" justify="center" color="#784f91">
+          <v-card class="pb-2 justify-center" justify="center" :color="ReadColorPalatte">
             <v-toolbar
-              dark tile flat color="#784f91"
+              dark tile flat :color="ReadColorPalatte"
             >
               <v-btn
                 icon
@@ -74,29 +74,47 @@
               <v-spacer></v-spacer>
               <v-toolbar-title flat class="text-content text-body-1">Book Detail</v-toolbar-title>
               <v-spacer></v-spacer>
-                <v-btn
-                  icon :href="CurrentBook.url"
+
+              <v-btn
+                  icon @click="ReadingModeSelect = true"
                   dark
                 >
-                  <v-icon>mdi-launch</v-icon>
+                  <v-icon>mdi-filter-variant</v-icon>
+                </v-btn>
+
+                <v-btn
+                  icon @click="ReadingColor = true"
+                  dark
+                >
+                  <v-icon>mdi-circle-edit-outline</v-icon>
                 </v-btn>
             </v-toolbar>
 
             <center>
-              <v-avatar size="150" class="mx-auto my-14" rounded>
-                  <v-img src="book.png"></v-img>
+              <v-avatar size="250" class="mx-auto mt-14 mb-1" rounded>
+                  <v-img src="book-open.png"></v-img>
               </v-avatar>
             </center>
 
-            <v-list-item class="mx-0 my-4 justify-center">
-
-              <v-btn icon x-large class="transparent">
-                <v-icon x-large>mdi-play-circle-outline</v-icon>
-              </v-btn>
+            <v-list-item class="mx-0 mt-n8 mb-4 justify-center">
 
               <v-card-title class="text-center justify-center">
                 <div class="text-content text-h6">{{ CurrentBook.title }}</div>
               </v-card-title>
+            </v-list-item>
+
+            <v-list-item class="pa-0 justify-center mb-8 pb-4">
+
+              <v-btn-toggle background-color="transparent">
+                <v-btn outlined class="text-content" style="text-transform: capitalize;">
+                  <span class="font-weight-bold mr-2 mb-1">Eng</span>Language
+                </v-btn>
+
+                <v-btn outlined class="text-content" style="text-transform: capitalize;">
+                  <span class="font-weight-bold mr-2 mb-1">{{ CurrentBookWords }}</span> Words
+                </v-btn>
+              </v-btn-toggle>
+
             </v-list-item>
 
 
@@ -115,12 +133,113 @@
               </v-chip-group>
 
               <v-card-title class="text-content">Content</v-card-title>
-              <v-card-text class="text-content text-body-2" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
-              </v-card-text>     
+              <v-card-text class="text-content text-body-1 pb-8" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
+              </v-card-text>  
+              
+              <v-overlay :value="SlideOverLay" opacity="1">
+
+                <v-list-item class="py-0 my-0" :color="ReadColorPalatte">
+                  <v-spacer></v-spacer>
+                  <v-btn icon @click="CloseSlide()"><v-icon>mdi-close</v-icon></v-btn>
+                </v-list-item>
+              
+                <v-carousel
+                  :continuous="false"
+                  :show-arrows="false"
+                  hide-delimiters
+                  height="300"
+                  v-model="SlideBookIndex"
+                >
+                  <v-carousel-item v-for="(item, i) in SlideBookList" :key="i">
+                    <v-sheet :color="ReadColorPalatte"
+                      height="100%"
+                      tile width="100%"
+                    >
+                      <v-row
+                        class="fill-height"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-card class="text-body-1 ma-8 text-center" tile flat width="90vw" :color="ReadColorPalatte">
+                          {{ item  }}.
+                        </v-card>
+                      </v-row>
+                    </v-sheet>
+                  </v-carousel-item>
+                </v-carousel>
+
+                <v-card tile flat class="mb-0 pb-0">
+                <v-card-text>
+                  <v-slider
+                    step="1"
+                    thumb-label
+                    ticks v-model="SlideBookIndex"
+                  ></v-slider>
+                </v-card-text>
+              </v-card>
+
+              </v-overlay>
+
             </v-card>   
 
           </v-card>
         </v-dialog>
+
+        <v-bottom-sheet v-model="ReadingModeSelect">
+        <v-list shaped>
+          <v-subheader class="text-content">Reading Mode</v-subheader>
+          <v-list-item-group v-model="ReadingMode">
+
+            <v-list-item @click="ReadingModeSelect = false">
+              <v-list-item-icon>
+                <v-icon>mdi-format-paragraph-spacing</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Read as Paragraph</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="OpenSlide()">
+              <v-list-item-icon>
+                <v-icon>mdi-play-box-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Read as Slide</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-timeline-text</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Read as Lines</v-list-item-title>
+            </v-list-item>
+
+          </v-list-item-group>
+        </v-list>
+      </v-bottom-sheet>
+
+      <v-bottom-sheet v-model="ReadingColor">
+        <v-list shaped>
+          <v-subheader class="text-content">Choose Color</v-subheader>
+          <v-list-item-group v-model="ReadingMode">
+
+            <v-list-item @click="ChangeReadColor('#784f91')">
+              <v-list-item-icon>
+                <v-icon color="#784f91">mdi-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Purple</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="ChangeReadColor('#f9784b')">
+              <v-list-item-icon>
+                <v-icon color="#f9784b">mdi-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Orange</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="ChangeReadColor('#1e1e1e')">
+              <v-list-item-icon>
+                <v-icon color="white">mdi-circle-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Dark Grey</v-list-item-title>
+            </v-list-item>
+
+          </v-list-item-group>
+        </v-list>
+      </v-bottom-sheet>
 
       </v-card>
     </v-col>
@@ -135,7 +254,18 @@ export default {
         category: null,
         greetings: "",
         CurrentBook: null,
+        CurrentBookWords: 0,
+        SlideBookIndex: 0,
+
+        ReadColorPalatte: "#784f91",
+        ReadingColor: 0,
+
         CurrentBookOpen: false,
+        SlideOverLay: false,
+        ReadingModeSelect: false,
+        ReadingMode: 0,
+
+        SlideBookList: [],
         BooksList: [],
         BooksListID: [],
       }
@@ -160,10 +290,36 @@ export default {
         this.CurrentBookOpen = true
       },
 
-      contentStrip(content) {
-            const c = content.replace(/(<([^>]+)>)/gi, '')
+      contentStrip(content, e = 0) {
+            var c = content.replace(/(<([^>]+)>)/gi, '')
+            this.CurrentBookWords = c.split(" ").length
+            const first = c.charAt(0)
+            if (e == 0) {
+              c = "<span style='font-size: 1.6rem; font-weight: 500;'>" + first + "</span>" + c.slice(1)
+            }
             return (c)
       },
+
+      OpenSlide() {
+        this.ReadingModeSelect = false
+        this.SlideOverLay = true
+
+        this.SlideBookList = this.contentStrip(this.CurrentBook.content, 1).split(".");
+        this.SlideBookList = this.SlideBookList.filter(function (el) {
+          return el != "";
+        });
+
+      },
+
+      CloseSlide() {
+        this.SlideOverLay = false
+        this.SlideBookList = []
+      },
+
+      ChangeReadColor(e) {
+        this.ReadColorPalatte = e
+      },
+
     },
   
     mounted() {
