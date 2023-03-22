@@ -43,19 +43,19 @@
     <v-bottom-navigation
       fixed grow
     >
-      <v-btn color="#f9784b" class="py-6">
+      <v-btn color="#f9784b" class="py-6" height="100%">
         <v-icon>mdi-view-dashboard</v-icon>
       </v-btn>
 
-      <v-btn>
+      <v-btn class="py-6" height="100%">
         <v-icon color="#f9784b">mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn>
+      <v-btn class="py-6" height="100%">
         <v-icon color="#f9784b">mdi-bell-outline</v-icon>
       </v-btn>
 
-      <v-btn @click.stop="drawer = !drawer">
+      <v-btn @click.stop="drawer = !drawer" class="py-6" height="100%">
         <v-icon color="#f9784b">mdi-square-rounded-badge-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
