@@ -15,7 +15,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn icon color="#f9784b" href="https://exaquo.blogspot.com/"><v-icon>mdi-web</v-icon></v-btn>
+            <v-btn icon :color="AppColorPalatte" @click="AppColor = true"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
           </v-list-item>
 
             <center>
@@ -25,7 +25,7 @@
               <v-btn value="left" class="px-4">
                 <span class="-hidden-sm-and-down text-caption" color="#784f91">My List</span>
 
-                <v-icon right color="#f9784b">
+                <v-icon right :color="AppColorPalatte">
                   mdi-filter-variant
                 </v-icon>
               </v-btn>
@@ -33,7 +33,7 @@
               <v-btn value="center" class="px-5">
                 <span class="-hidden-sm-and-down text-caption">Saved</span>
 
-                <v-icon right color="#f9784b">
+                <v-icon right :color="AppColorPalatte">
                   mdi-book
                 </v-icon>
               </v-btn>
@@ -41,7 +41,7 @@
               <v-btn value="right" class="px-4">
                 <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
-                <v-icon right color="#f9784b">
+                <v-icon right :color="AppColorPalatte">
                   mdi-moon-new
                 </v-icon>
               </v-btn>
@@ -75,13 +75,6 @@
               <v-toolbar-title flat class="text-content text-body-1">Book Detail</v-toolbar-title>
               <v-spacer></v-spacer>
 
-              <v-btn
-                  icon @click="ReadingModeSelect = true"
-                  dark
-                >
-                  <v-icon>mdi-filter-variant</v-icon>
-                </v-btn>
-
                 <v-btn
                   icon @click="ReadingColor = true"
                   dark
@@ -91,19 +84,19 @@
             </v-toolbar>
 
             <center>
-              <v-avatar size="250" class="mx-auto mt-14 mb-1" rounded>
+              <v-avatar size="250" class="mx-auto mt-14 mb-0" rounded>
                   <v-img src="book-open.png"></v-img>
               </v-avatar>
             </center>
 
-            <v-list-item class="mx-0 mt-n8 mb-4 justify-center">
+            <v-list-item class="mx-0 mt-n10 mb-4 justify-center">
 
               <v-card-title class="text-center justify-center">
                 <div class="text-content text-h6">{{ CurrentBook.title }}</div>
               </v-card-title>
             </v-list-item>
 
-            <v-list-item class="pa-0 justify-center mb-8 pb-4">
+            <v-list-item class="pa-0 justify-center mb-4 pb-8">
 
               <v-btn-toggle background-color="transparent">
                 <v-btn outlined class="text-content" style="text-transform: capitalize;">
@@ -117,11 +110,27 @@
 
             </v-list-item>
 
+            <v-list-item class="pa-0 justify-center mb-n6" style="z-index: 9;">
 
-            <v-card tile flat class="ma-0 pt-2">
+            <v-btn-toggle rounded style="border-width: 5px; color: white;">
+              <v-btn outlined rounded ile class="text-content" style="text-transform: capitalize;" @click="ReadingModeSelect = true">
+                <v-icon class="ml-1 mr-2" :color="ReadColorPalatte">mdi-filter-variant</v-icon>
+                Read Book
+              </v-btn>
+
+              <v-btn outlined class="text-content" style="text-transform: capitalize;">
+                <v-icon class="mr-2" :color="ReadColorPalatte">mdi-play-box</v-icon>
+                Play Book
+              </v-btn>
+            </v-btn-toggle>
+
+            </v-list-item>
+
+
+            <v-card tile flat class="ma-0 pt-6">
 
               <v-chip-group
-                mandatory class="mx-4 mt-4"
+                mandatory class="mx-4 mt-10"
                 active-class="primary--text"
               >
                 <v-chip
@@ -136,9 +145,9 @@
               <v-card-text class="text-content text-body-1 pb-8" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
               </v-card-text>  
               
-              <v-overlay :value="SlideOverLay" opacity="1">
+              <v-overlay :value="SlideOverLay" opacity="1" style="z-index: 11;">
 
-                <v-list-item class="py-0 my-0" :color="ReadColorPalatte">
+                <v-list-item class="py-0 my-0 mx-0 px-0" :color="ReadColorPalatte">
                   <v-spacer></v-spacer>
                   <v-btn icon @click="CloseSlide()"><v-icon>mdi-close</v-icon></v-btn>
                 </v-list-item>
@@ -180,6 +189,12 @@
 
               </v-overlay>
 
+              <v-overlay :value="LineOverlay" opacity="1" style="z-index: 11;">
+                <v-card tile flat class="mb-0 pb-0">
+                  
+                </v-card>
+              </v-overlay>
+
             </v-card>   
 
           </v-card>
@@ -188,7 +203,7 @@
         <v-bottom-sheet v-model="ReadingModeSelect">
         <v-list shaped>
           <v-subheader class="text-content">Reading Mode</v-subheader>
-          <v-list-item-group v-model="ReadingMode">
+          <v-list-item-group v-model="ReadingMode" color="primary">
 
             <v-list-item @click="ReadingModeSelect = false">
               <v-list-item-icon>
@@ -241,6 +256,34 @@
         </v-list>
       </v-bottom-sheet>
 
+      <v-bottom-sheet v-model="AppColor">
+        <v-list shaped>
+          <v-subheader class="text-content">Choose Theme Color</v-subheader>
+          <v-list-item-group v-model="ReadingMode">
+
+            <v-list-item @click="ChangeAppColor('#784f91')">
+              <v-list-item-icon>
+                <v-icon color="#784f91">mdi-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Purple</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="ChangeAppColor('#f9784b')">
+              <v-list-item-icon>
+                <v-icon color="#f9784b">mdi-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Orange</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="ChangeAppColor('#1e1e1e')">
+              <v-list-item-icon>
+                <v-icon color="white">mdi-circle-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Dark Grey</v-list-item-title>
+            </v-list-item>
+
+          </v-list-item-group>
+        </v-list>
+      </v-bottom-sheet>
+
       </v-card>
     </v-col>
   </v-row>
@@ -258,10 +301,14 @@ export default {
         SlideBookIndex: 0,
 
         ReadColorPalatte: "#784f91",
+
+        AppColorPalatte: "#f9784b",
         ReadingColor: 0,
+        AppColor: false,
 
         CurrentBookOpen: false,
         SlideOverLay: false,
+        LineOverlay: false,
         ReadingModeSelect: false,
         ReadingMode: 0,
 
@@ -318,6 +365,10 @@ export default {
 
       ChangeReadColor(e) {
         this.ReadColorPalatte = e
+      },
+
+      ChangeAppColor(e) {
+        this.AppColorPalatte = e
       },
 
     },

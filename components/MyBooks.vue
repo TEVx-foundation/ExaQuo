@@ -6,6 +6,10 @@
             <a class="text-content text-decoration-none" style="color: #f9784b;">See More</a>
         </v-list-item>
 
+        <v-card tile flat class="mx-auto my-8" color="transparent" v-if="data.length === 0">
+            <v-img src="empty-library.png" class="mx-auto" max-width="200" contain></v-img>
+        </v-card>
+
         <v-slide-group
             v-model="MyBooksSlide"
             class="pa-0"
@@ -21,7 +25,7 @@
                     <v-avatar size="80" class="my-2 mt-6 mx-4" rounded>
                         <v-img src="book-open.png"></v-img>
                     </v-avatar>
-                    <div class="text-content font-weight-bold text-body-2" v-text="item.title"></div>
+                    <div class="text-content font-weight-bold text-body-2 mx-2" v-text="item.title"></div>
 
                 </v-card>
             </v-slide-item>
@@ -42,7 +46,7 @@
                         <div class="text-content font-weight-bold" v-text="SelectedBook.title"></div>
                         <p class="text-caption text--primary text-content mt-1 -text-truncate" style="line-clamp: 2;" v-html="contentStrip(SelectedBook.content)"></p>
                         <div>
-                            <v-btn color="primary" class="ma-0" text small tile>
+                            <v-btn color="primary" class="ma-0" text small tile @click="RemoveBook(SelectedBook)">
                                 <v-icon left>mdi-close</v-icon>
                                 <span class="text-caption">Remove</span>
                             </v-btn>
@@ -83,6 +87,19 @@
         contentStrip(content) {
             const c = content.replace(/(<([^>]+)>)/gi, '')
             return (c.slice(0, 95) + '...')
+        },
+
+        RemoveBook(e) {
+            // var Manipulated = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
+
+            var Manipulated = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
+            Manipulated = Manipulated.filter(el => el !== e.id)
+
+            this.data = this.data.filter(el => el !== e)
+            localStorage.setItem("PersonalReadList", JSON.stringify(this.data))
+            localStorage.setItem("PersonalReadListID", JSON.stringify(Manipulated))
+
+            this.BookBarValue = false
         },
 
         SendReadData(e) {

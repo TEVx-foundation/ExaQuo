@@ -11,7 +11,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
-          router
+          router color="primary"
           exact
         >
           <v-list-item-action>
@@ -41,13 +41,13 @@
     </v-main>
 
     <v-bottom-navigation
-      fixed grow
+      fixed grow v-model="bottomNav"
     >
-      <v-btn color="#f9784b" class="py-6" height="100%">
+      <v-btn color="#f9784b" class="py-6" height="100%" to="/">
         <v-icon>mdi-view-dashboard</v-icon>
       </v-btn>
 
-      <v-btn class="py-6" height="100%">
+      <v-btn class="py-6" height="100%" to="search">
         <v-icon color="#f9784b">mdi-magnify</v-icon>
       </v-btn>
 
@@ -71,6 +71,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      bottomNav: 0,
       items: [
         {
           icon: 'mdi-book-open-variant',

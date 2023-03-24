@@ -3,7 +3,7 @@
         <v-list-item class="mx-0 my-4">
             <div class="text-content">Explore</div>
             <v-spacer></v-spacer>
-            <a class="text-content text-decoration-none" style="color: #f9784b;">See Web</a>
+            <a class="text-content text-decoration-none" style="color: #f9784b;" @click="OpenWeb = true">See Web</a>
         </v-list-item>
 
         <v-card dark flat color="transparent" v-for="(item, i) in fullList" :key="i">
@@ -26,7 +26,7 @@
                             </v-btn>
 
                             <v-btn color="primary" class="ma-0" text small tile v-else>
-                                <v-icon left>mdi-bookmark-outline</v-icon>
+                                <v-icon left>mdi-check-all</v-icon>
                                 <span class="text-caption">Added</span>
                             </v-btn>
 
@@ -39,6 +39,40 @@
                 </v-col>
             </v-row>
         </v-card>
+
+        <v-bottom-sheet v-model="OpenWeb">
+            <v-card dark flat>
+            <v-row class="ma-0 px-2 pt-2">
+
+                <v-col cols="4" class="ma-0 pa-0">
+                    <v-avatar size="100" class="my-2 mt-6 mx-2" rounded>
+                        <v-img src="blogspot.png"></v-img>
+                    </v-avatar>
+                </v-col>
+
+                <v-col cols="8" class="ma-0 pa-0">
+                    <v-card-text>
+                        <div class="text-content font-weight-bold">Open in Web</div>
+                        <p class="text-caption text--primary text-content mt-1 -text-truncate" style="line-clamp: 2;">
+                          Clicking on continue will redirect you to the main webpage of ExaQuo.
+                        </p>
+                        <div>
+                            <v-btn color="primary" class="ma-0" text small tile @click="OpenWeb = false">
+                                <v-icon left>mdi-close</v-icon>
+                                <span class="text-caption">Close</span>
+                            </v-btn>
+                            <v-btn color="green" class="ma-0" text small tile href="https://exaquo.blogspot.com/">
+                                <v-icon left>mdi-web</v-icon>
+                                <span class="text-caption">Visit</span>
+                            </v-btn>
+                        </div>
+                    </v-card-text>
+                </v-col>
+
+            </v-row>
+        </v-card>
+        </v-bottom-sheet>
+
         <v-card tile flat height="50" color="transparent">
         </v-card>
 
@@ -55,6 +89,7 @@
           fullList: null,
           nextPagetoken: null,
           errorMessage: null,
+          OpenWeb: false,
         }
       },
 
