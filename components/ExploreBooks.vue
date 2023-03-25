@@ -253,4 +253,8 @@
 .text-content {
   font-family: 'Montserrat', sans-serif !important; 
 }
+
+.force-outline-avatar {
+    border: 2px solid #fff;
+}
 </style>

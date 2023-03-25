@@ -148,7 +148,7 @@
               <v-card-title class="text-content">Content
                 <v-spacer></v-spacer>
                 <v-btn rounded text class="text-content force-captilize" @click="BookProgress = true"><v-icon class="mr-2">mdi-progress-check</v-icon>
-                  <span v-if="CurrentBookStatus == -1">Read</span>
+                  <span v-if="CurrentBookStatus == -1">Mark</span>
                   <span v-if="CurrentBookStatus == 0">Continue</span>
                   <span v-if="CurrentBookStatus == 1">Finished</span>
                 </v-btn>
@@ -262,7 +262,7 @@
       <v-bottom-sheet v-model="BookProgress">
         <v-list shaped>
           <v-subheader class="text-content">Select Progress</v-subheader>
-          <v-list-item-group v-model="ReadingMode" color="primary">
+          <v-list-item-group v-model="ProgressMode" color="primary">
 
             <v-list-item @click="AddtoContinueList()">
               <v-list-item-icon>
@@ -284,7 +284,7 @@
       <v-bottom-sheet v-model="ReadingColor">
         <v-list shaped>
           <v-subheader class="text-content">Choose Color</v-subheader>
-          <v-list-item-group v-model="ReadingMode">
+          <v-list-item-group v-model="ReadColorMode">
 
             <v-list-item @click="ChangeReadColor('#784f91')">
               <v-list-item-icon>
@@ -312,7 +312,7 @@
       <v-bottom-sheet v-model="AppColor">
         <v-list shaped>
           <v-subheader class="text-content">Choose Theme Color</v-subheader>
-          <v-list-item-group v-model="ReadingMode">
+          <v-list-item-group v-model="AppColorList">
 
             <v-list-item @click="ChangeAppColor('#784f91')">
               <v-list-item-icon>
@@ -359,6 +359,7 @@ export default {
         AppColorPalatte: "#f9784b",
         ReadingColor: 0,
         AppColor: false,
+        AppColorList: 1,
         BookProgress: false,
 
         CurrentBookOpen: false,
@@ -366,6 +367,8 @@ export default {
         LineOverlay: false,
         ReadingModeSelect: false,
         ReadingMode: 0,
+        ProgressMode: 2,
+        ReadColorMode: 0,
 
         ReadBookList: [],
         ReadBookListID: [],
@@ -457,6 +460,7 @@ export default {
       OpenSlide() {
         this.ReadingModeSelect = false
         this.SlideOverLay = true
+        this.ReadingMode = 0
 
         this.SlideBookList = this.contentStrip(this.CurrentBook.content, 1).split(".");
         this.SlideBookList = this.SlideBookList.filter(function (el) {
@@ -468,6 +472,7 @@ export default {
       OpenLine() {
         this.ReadingModeSelect = false
         this.LineOverlay = true
+        this.ReadingMode = 0
 
         this.SlideBookList = this.contentStrip(this.CurrentBook.content, 1).split(".");
         this.SlideBookList = this.SlideBookList.filter(function (el) {
