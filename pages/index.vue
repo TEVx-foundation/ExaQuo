@@ -22,8 +22,8 @@
             <v-btn-toggle background-color="#252525"
               borderless class="mx-1 d-flex flex-row justify-space-between"
             >
-              <v-btn value="left" class="px-4" width="33%">
-                <span class="-hidden-sm-and-down text-caption" color="#784f91">My List</span>
+              <v-btn value="left" class="px-4" width="33%" to="continue">
+                <span class="-hidden-sm-and-down text-caption" color="#784f91">Continue</span>
 
                 <v-icon right :color="AppColorPalatte">
                   mdi-filter-variant
@@ -42,7 +42,7 @@
 
               <v-spacer></v-spacer>
 
-              <v-btn value="right" class="px-4"  width="33%">
+              <v-btn value="right" class="px-4"  width="33%" to="toread">
                 <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -53,7 +53,7 @@
           </center>
 
           <MyBooks class="ma-0" :data="BooksList" v-if="BooksList.length !== 0" @ReadData="OpenBook"></MyBooks>
-          <ExploreBooks class="ma-0" :data="BooksListID" @updateReadLater="updateList" @ReadData="OpenBook"></ExploreBooks>
+          <ExploreBooks class="ma-0" :data="BooksListID" :continue="ContinueBookListID" :read="ReadBookListID" @updateReadLater="updateList" @ReadData="OpenBook"></ExploreBooks>
 
         </v-card>
 
@@ -145,7 +145,14 @@
                 </v-chip>
               </v-chip-group>
 
-              <v-card-title class="text-content">Content</v-card-title>
+              <v-card-title class="text-content">Content
+                <v-spacer></v-spacer>
+                <v-btn rounded text class="text-content force-captilize" @click="BookProgress = true"><v-icon class="mr-2">mdi-progress-check</v-icon>
+                  <span v-if="CurrentBookStatus == -1">Read</span>
+                  <span v-if="CurrentBookStatus == 0">Continue</span>
+                  <span v-if="CurrentBookStatus == 1">Finished</span>
+                </v-btn>
+              </v-card-title>
               <v-card-text class="text-content text-body-1 pb-8" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
               </v-card-text>  
 
@@ -252,6 +259,28 @@
         </v-list>
       </v-bottom-sheet>
 
+      <v-bottom-sheet v-model="BookProgress">
+        <v-list shaped>
+          <v-subheader class="text-content">Select Progress</v-subheader>
+          <v-list-item-group v-model="ReadingMode" color="primary">
+
+            <v-list-item @click="AddtoContinueList()">
+              <v-list-item-icon>
+                <v-icon>mdi-progress-clock</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Mark as Reading</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="AddtoCompleteList()">
+              <v-list-item-icon>
+                <v-icon>mdi-check</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Mark as Complete</v-list-item-title>
+            </v-list-item>
+
+          </v-list-item-group>
+        </v-list>
+      </v-bottom-sheet>
+
       <v-bottom-sheet v-model="ReadingColor">
         <v-list shaped>
           <v-subheader class="text-content">Choose Color</v-subheader>
@@ -321,6 +350,7 @@ export default {
         category: null,
         greetings: "",
         CurrentBook: null,
+        CurrentBookStatus: -1,
         CurrentBookWords: 0,
         SlideBookIndex: 0,
 
@@ -329,6 +359,7 @@ export default {
         AppColorPalatte: "#f9784b",
         ReadingColor: 0,
         AppColor: false,
+        BookProgress: false,
 
         CurrentBookOpen: false,
         SlideOverLay: false,
@@ -336,7 +367,14 @@ export default {
         ReadingModeSelect: false,
         ReadingMode: 0,
 
+        ReadBookList: [],
+        ReadBookListID: [],
+
+        ContinueBookList: [],
+        ContinueBookListID: [],
+
         SlideBookList: [],
+
         BooksList: [],
         BooksListID: [],
       }
@@ -356,9 +394,54 @@ export default {
         }
       },
 
+      AddtoCompleteList() {
+        if (this.ContinueBookListID.includes(this.CurrentBook.id) === false) {
+          this.ContinueBookList = this.ContinueBookList.filter(el => el !== this.CurrentBook)
+          this.ContinueBookListID = this.ContinueBookListID.filter(el => el !== this.CurrentBook.id)
+
+          localStorage.setItem("PersonalContinueList", JSON.stringify(this.ContinueBookList))
+          localStorage.setItem("PersonalContinueListID", JSON.stringify(this.ContinueBookListID))
+        }
+
+        if (this.ReadBookListID.includes(this.CurrentBook.id) === false) {
+          this.ReadBookList.push(this.CurrentBook)
+          this.ReadBookListID.push(this.CurrentBook.id)
+          localStorage.setItem("PersonalCompleteList", JSON.stringify(this.ReadBookList))
+          localStorage.setItem("PersonalCompleteListID", JSON.stringify(this.ReadBookListID))
+        }
+      },
+
+      AddtoContinueList() {
+        if (this.ReadBookListID.includes(this.CurrentBook.id) === true) {
+          this.ReadBookList = this.ReadBookList.filter(el => el !== this.CurrentBook)
+          this.ReadBookListID = this.ReadBookListID.filter(el => el !== this.CurrentBook.id)
+
+          localStorage.setItem("PersonalCompleteList", JSON.stringify(this.ReadBookList))
+          localStorage.setItem("PersonalCompleteListID", JSON.stringify(this.ReadBookListID))
+        }
+
+        if (this.ContinueBookListID.includes(this.CurrentBook.id) === false) {
+          this.ContinueBookList.push(this.CurrentBook)
+          this.ContinueBookListID.push(this.CurrentBook.id)
+          localStorage.setItem("PersonalContinueList", JSON.stringify(this.ContinueBookList))
+          localStorage.setItem("PersonalContinueListID", JSON.stringify(this.ContinueBookListID))
+        }
+      },
+
+      checkStatus(e) {
+        if (this.ReadBookListID.includes(e.id) === true) {
+          this.CurrentBookStatus = 1
+        } else if (this.ContinueBookListID.includes(e.id) === true) {
+          this.CurrentBookStatus = 0
+        } else {
+          this.CurrentBookStatus = -1
+        }
+      },
+
       OpenBook(e) {
         this.CurrentBook = e
         this.CurrentBookOpen = true
+        this.checkStatus(e)
       },
 
       contentStrip(content, e = 0) {
@@ -422,6 +505,12 @@ export default {
 
       this.BooksList = JSON.parse(localStorage.getItem("PersonalReadList") || '[]')
       this.BooksListID = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
+
+      this.ReadBookList = JSON.parse(localStorage.getItem("PersonalCompleteList") || '[]')
+      this.ReadBookListID = JSON.parse(localStorage.getItem("PersonalCompleteListID") || '[]')
+
+      this.ContinueBookList = JSON.parse(localStorage.getItem("PersonalContinueList") || '[]')
+      this.ContinueBookListID = JSON.parse(localStorage.getItem("PersonalContinueListID") || '[]')
     }
 }
 </script>
@@ -429,5 +518,9 @@ export default {
 <style scoped>
 .text-content {
   font-family: 'Montserrat', sans-serif !important; 
+}
+
+.force-captilize {
+  text-transform: capitalize !important;
 }
 </style>

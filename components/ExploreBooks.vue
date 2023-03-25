@@ -27,9 +27,21 @@
             <v-row class="ma-0 px-2 pt-2">
 
                 <v-col cols="4" class="ma-0 pa-0">
-                    <v-avatar size="100" class="my-2 mt-6" rounded>
+                    <v-badge v-if="checkStatus(item) == 0"
+                        bordered
+                        color="#f9784b"
+                        icon="mdi-progress-clock"
+                        overlap
+                    >
+                        <v-avatar size="100" class="my-2 mt-6" rounded>
+                            <v-img src="book-open.png"></v-img>
+                        </v-avatar>
+                    </v-badge>
+
+                    <v-avatar size="100" class="my-2 mt-6" rounded v-else>
                         <v-img src="book-open.png"></v-img>
                     </v-avatar>
+
                 </v-col>
 
                 <v-col cols="8" class="ma-0 pa-0">
@@ -48,8 +60,23 @@
                             </v-btn>
 
                             <v-btn color="green" class="ma-0" text small tile @click="SendReadData(item)">
-                                <v-icon left>mdi-book-open</v-icon>
-                                <span class="text-caption">Read</span>
+
+                                <span v-if="checkStatus(item) == -1">
+                                    <v-icon left>mdi-book-open</v-icon>
+                                    <span class="text-caption">Read</span>
+                                </span>
+
+                                <span v-else-if="checkStatus(item) == 0">
+                                    <v-icon left>mdi-progress-clock</v-icon>
+                                    <span class="text-caption">Read</span>
+                                </span>
+
+                                <span v-else>
+                                    <v-icon left>mdi-check-all</v-icon>
+                                    <span class="text-caption">Done</span>
+                                </span>
+
+
                             </v-btn>
                         </div>
                     </v-card-text>
@@ -113,7 +140,7 @@
   <script>
     export default {
       name: 'ExploreBooks',
-      props: ['data'],
+      props: ['data', 'continue', 'read'],
       data () {
         return {
           ReadLater: [],
@@ -180,6 +207,16 @@
               return true
             } else {
               return false
+            }
+        },
+
+        checkStatus(e) {
+            if (this.read.includes(e.id) === true) {
+                return 1
+            } else if (this.continue.includes(e.id) === true) {
+                return 0
+            } else {
+                return -1
             }
         },
 
