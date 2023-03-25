@@ -56,6 +56,19 @@
                 </v-col>
             </v-row>
         </v-card>
+
+
+        <v-list-item class="ma-0 pa-2 pt-8 pb-4" v-if="nextPagetoken !== null || nextPagetoken !== undefined">
+        <v-btn icon>
+            <v-icon>mdi-circle</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn rounded outlined large class="ml-4" width="80%" @click="getNextList()" :loading="nextLoading">
+            Load More
+        </v-btn>
+        <v-spacer></v-spacer>
+        </v-list-item>
+
         </section>
 
         <v-bottom-sheet v-model="OpenWeb">
@@ -105,10 +118,15 @@
         return {
           ReadLater: [],
           fullList: null,
+          nextList: null,
+
           nextPagetoken: null,
           errorMessage: null,
-          loadingIco: false,
+          loadingIco: true,
+          nextLoading: false,
+
           OpenWeb: false,
+          mainLink: 'https://www.googleapis.com/blogger/v3/blogs/2149664745604437619/posts?key=AIzaSyBsV5RS2HBVbo8DSGY6uHyCgggFraBfRQU',
         }
       },
 
@@ -120,7 +138,7 @@
                 .get('https://www.googleapis.com/blogger/v3/blogs/2149664745604437619/posts?key=AIzaSyBsV5RS2HBVbo8DSGY6uHyCgggFraBfRQU')
                 .then((res) => {
                     this.fullList = res.data.items
-                    this.nextPagetoken = res.nextPageToken
+                    this.nextPagetoken = res.data.nextPageToken
                     this.loadingIco = false
                 })
                 .catch((err) => {
@@ -129,6 +147,30 @@
                 })
             } catch (error) {
                 this.loadingIco = false
+                // this.$sentry.captureException(new Error(error))
+            }
+        },
+
+        async getNextList() {
+            this.nextLoading = true
+            try {
+                await this.$axios
+                .get('https://www.googleapis.com/blogger/v3/blogs/2149664745604437619/posts?key=AIzaSyBsV5RS2HBVbo8DSGY6uHyCgggFraBfRQU&pageToken=' + this.nextPagetoken)
+                .then((res) => {
+                    this.nextList = res.data.items
+                    this.nextPagetoken = res.data.nextPageToken
+                    this.fullList = this.fullList.concat(this.nextList)
+
+                    console.log(this.nextList)
+
+                    this.nextLoading = false
+                })
+                .catch((err) => {
+                    this.errorMessage = err
+                    this.nextLoading = false
+                })
+            } catch (error) {
+                this.nextLoading = false
                 // this.$sentry.captureException(new Error(error))
             }
         },

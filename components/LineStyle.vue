@@ -1,6 +1,6 @@
 <template>
 
- <div class="my-4">
+ <div class="my-4" justify="center" align="center">
   <v-card class="overflow-auto mb-2" height="60vh" tile flat id="MainScroll" style="margin-top: 10vh;">
     <v-card tile flat class="spacer" align="center">
         <v-card-text class="text-content text-center justify-center text-h3">
@@ -40,10 +40,10 @@
 </div>
 </template>
   
-  <script>
-    export default {
-    name: 'LineStyle',
-    props: ['paragraphs', 'title'],
+<script>
+export default {
+name: 'LineStyle',
+props: ['paragraphs', 'title'],
     data () {
     return {
         swipeDirection: 'None',
