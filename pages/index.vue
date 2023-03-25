@@ -189,11 +189,19 @@
 
               </v-overlay>
 
-              <v-overlay :value="LineOverlay" opacity="1" style="z-index: 11;">
-                <v-card tile flat class="mb-0 pb-0">
+              <v-dialog fullscreen :value="LineOverlay" opacity="1" style="z-index: 11;">
+                <v-card tile flat class="mb-0 pb-0" justify="center" align="center">
+
+                  <v-list-item class="pa-0 ma-0 ml-2 pt-2 mb-8">
+                    <v-btn icon @click="LineOverlay = false">
+                      <v-spacer></v-spacer>
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                  </v-list-item>
+                  <LineStyle :paragraphs="SlideBookList"></LineStyle>
                   
                 </v-card>
-              </v-overlay>
+              </v-dialog>
 
             </v-card>   
 
@@ -217,7 +225,7 @@
               </v-list-item-icon>
               <v-list-item-title>Read as Slide</v-list-item-title>
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="OpenLine()">
               <v-list-item-icon>
                 <v-icon>mdi-timeline-text</v-icon>
               </v-list-item-icon>
@@ -358,6 +366,16 @@ export default {
 
       },
 
+      OpenLine() {
+        this.ReadingModeSelect = false
+        this.LineOverlay = true
+
+        this.SlideBookList = this.contentStrip(this.CurrentBook.content, 1).split(".");
+        this.SlideBookList = this.SlideBookList.filter(function (el) {
+          return el != "";
+        });
+      },
+
       CloseSlide() {
         this.SlideOverLay = false
         this.SlideBookList = []
@@ -369,6 +387,7 @@ export default {
 
       ChangeAppColor(e) {
         this.AppColorPalatte = e
+        this.$parent.$emit("AppColor", e)
       },
 
     },
@@ -394,5 +413,13 @@ export default {
 <style scoped>
 .text-content {
   font-family: 'Montserrat', sans-serif !important; 
+}
+
+.highlighted {
+  color: red;
+}
+
+.text {
+    font-size: 2rem;
 }
 </style>

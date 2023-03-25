@@ -36,27 +36,27 @@
 
     <v-main>
       <v-container>
-        <Nuxt />
+        <Nuxt @AppColor="ThemeChanger"/>
       </v-container>
     </v-main>
 
     <v-bottom-navigation
       fixed grow v-model="bottomNav"
     >
-      <v-btn color="#f9784b" class="py-6" height="100%" to="/">
+      <v-btn :color="themeColor" class="py-6" height="100%" to="/">
         <v-icon>mdi-view-dashboard</v-icon>
       </v-btn>
 
       <v-btn class="py-6" height="100%" to="search">
-        <v-icon color="#f9784b">mdi-magnify</v-icon>
+        <v-icon :color="themeColor">mdi-magnify</v-icon>
       </v-btn>
 
       <v-btn class="py-6" height="100%">
-        <v-icon color="#f9784b">mdi-bell-outline</v-icon>
+        <v-icon :color="themeColor">mdi-bell-outline</v-icon>
       </v-btn>
 
       <v-btn @click.stop="drawer = !drawer" class="py-6" height="100%">
-        <v-icon color="#f9784b">mdi-square-rounded-badge-outline</v-icon>
+        <v-icon :color="themeColor">mdi-square-rounded-badge-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
 
@@ -71,6 +71,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      themeColor: '#f9784b',
       bottomNav: 0,
       items: [
         {
@@ -87,6 +88,12 @@ export default {
       right: true,
       title: 'ExaQuo'
     }
-  }
+  },
+
+  methods: {
+      ThemeChanger(e) {
+        this.themeColor = e
+      },
+  },
 }
 </script>

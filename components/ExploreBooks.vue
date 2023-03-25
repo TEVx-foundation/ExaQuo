@@ -1,11 +1,28 @@
 <template>
     <v-card tile flat class="mx-0 mt-4" color="transparent">
-        <v-list-item class="mx-0 my-4">
+        <v-list-item class="mx-0 my-4 pr-0">
             <div class="text-content">Explore</div>
             <v-spacer></v-spacer>
-            <a class="text-content text-decoration-none" style="color: #f9784b;" @click="OpenWeb = true">See Web</a>
+            <v-btn icon style="color: #f9784b;" @click="OpenWeb = true" class="mr-0 pr-0">
+                <v-icon>mdi-web</v-icon>
+            </v-btn>
+
+            <!-- a class="text-content text-decoration-none" style="color: #f9784b;" @click="OpenWeb = true">See Web</a -->
+
         </v-list-item>
 
+        <section v-if="loadingIco">
+
+            <center>
+                <v-progress-circular
+                indeterminate class="mx-auto my-8"
+                color="primary"
+                ></v-progress-circular>
+            </center>
+
+        </section>
+
+        <section v-else>
         <v-card dark flat color="transparent" v-for="(item, i) in fullList" :key="i">
             <v-row class="ma-0 px-2 pt-2">
 
@@ -39,6 +56,7 @@
                 </v-col>
             </v-row>
         </v-card>
+        </section>
 
         <v-bottom-sheet v-model="OpenWeb">
             <v-card dark flat>
@@ -89,23 +107,28 @@
           fullList: null,
           nextPagetoken: null,
           errorMessage: null,
+          loadingIco: false,
           OpenWeb: false,
         }
       },
 
       methods: {
         async getEntireList() {
+            this.loadingIco = true
             try {
                 await this.$axios
                 .get('https://www.googleapis.com/blogger/v3/blogs/2149664745604437619/posts?key=AIzaSyBsV5RS2HBVbo8DSGY6uHyCgggFraBfRQU')
                 .then((res) => {
                     this.fullList = res.data.items
                     this.nextPagetoken = res.nextPageToken
+                    this.loadingIco = false
                 })
                 .catch((err) => {
                     this.errorMessage = err
+                    this.loadingIco = false
                 })
             } catch (error) {
+                this.loadingIco = false
                 // this.$sentry.captureException(new Error(error))
             }
         },
