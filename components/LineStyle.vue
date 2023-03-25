@@ -1,16 +1,20 @@
 <template>
 
- <div>
-  <v-card class="overflow-auto mb-8" height="400" tile flat id="MainScroll">
-    <v-card tile flat class="spacer"></v-card>
+ <div class="my-4">
+  <v-card class="overflow-auto mb-2" height="60vh" tile flat id="MainScroll" style="margin-top: 10vh;">
+    <v-card tile flat class="spacer" align="center">
+        <v-card-text class="text-content text-center justify-center text-h3">
+            {{ title }}
+        </v-card-text>
+    </v-card>
 
     <div class="text mt-8">
       <div v-for="(line, index) in paragraphs" :key="index">
-        <p v-if="ActiveIndex == index + 1" class="line" id="ScrollIndex">{{ line }}.</p>
+        <p v-if="ActiveIndex == index + 1" class="line text-content" id="ScrollIndex" ref="ScrollIndex">{{ line }}.</p>
         <p v-else>
 
-            <p v-if="ActiveIndex == index" class="active-line">{{ line }}.</p>
-            <p v-else-if="ActiveIndex !== index + 1" class="line">{{ line }}.</p>
+            <p v-if="ActiveIndex == index" class="active-line text-content">{{ line }}.</p>
+            <p v-else-if="ActiveIndex !== index + 1" class="line text-content">{{ line }}.</p>
 
         </p>
       </div>
@@ -28,25 +32,27 @@
     }"
     align="center"
     justify="center"
-    style="height: 200px; width: 100vw;"
+    style="height: 20vh; width: 100vw;"
   >
     <v-icon x-large>mdi-gesture-swipe-vertical</v-icon>
   </v-row>
 
 </div>
-
 </template>
   
   <script>
-    // import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
     export default {
     name: 'LineStyle',
-    props: ['paragraphs'],
+    props: ['paragraphs', 'title'],
     data () {
     return {
         swipeDirection: 'None',
         ActiveIndex: 0,
+        options: {
+            duration: 1000,
+            offset: -150,
+            easing: 'easeInOutCubic',
+        },
      }
     },
 
@@ -66,8 +72,9 @@
         PreviousLine() {
             if (this.ActiveIndex > 0) {
                 this.ActiveIndex--
-                document.getElementById('ScrollIndex').scrollIntoView({behavior: 'smooth', inline: 'center'})
-                document.getElementById('ScrollIndex').scrollTop = 150
+                //$vuetify.goTo('#ScrollIndex', this.options)
+                document.getElementById('ScrollIndex').scrollIntoView({ behavior: "smooth", block: "center", inline: "center" })
+                // document.getElementById('ScrollIndex').scrollTop = 150
             }
         },
     },
@@ -81,7 +88,7 @@
 
 <style scoped>
 .spacer {
-  height: 50vh;
+  height: 30vh;
 }
 
 .line {
@@ -99,5 +106,9 @@
 
 .highlighted {
   opacity: 1;
+}
+
+.text-content {
+  font-family: 'Montserrat', sans-serif !important; 
 }
 </style>

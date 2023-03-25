@@ -19,10 +19,10 @@
           </v-list-item>
 
             <center>
-            <v-btn-toggle
-              borderless class="mx-auto"
+            <v-btn-toggle background-color="#252525"
+              borderless class="mx-1 d-flex flex-row justify-space-between"
             >
-              <v-btn value="left" class="px-4">
+              <v-btn value="left" class="px-4" width="33%">
                 <span class="-hidden-sm-and-down text-caption" color="#784f91">My List</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -30,7 +30,9 @@
                 </v-icon>
               </v-btn>
 
-              <v-btn value="center" class="px-5">
+              <v-spacer></v-spacer>
+
+              <v-btn value="center" class="px-5" width="33%">
                 <span class="-hidden-sm-and-down text-caption">Saved</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -38,7 +40,9 @@
                 </v-icon>
               </v-btn>
 
-              <v-btn value="right" class="px-4">
+              <v-spacer></v-spacer>
+
+              <v-btn value="right" class="px-4"  width="33%">
                 <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -144,6 +148,17 @@
               <v-card-title class="text-content">Content</v-card-title>
               <v-card-text class="text-content text-body-1 pb-8" v-html="contentStrip(CurrentBook.content)" style="line-height: 1.8;">
               </v-card-text>  
+
+              <v-list-item class="ma-0 pa-2 pb-8">
+                <v-btn icon>
+                  <v-icon>mdi-circle</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn rounded outlined flat x-large class="ml-4" width="80%">
+                  Next Book
+                </v-btn>
+                <v-spacer></v-spacer>
+              </v-list-item>
               
               <v-overlay :value="SlideOverLay" opacity="1" style="z-index: 11;">
 
@@ -190,7 +205,7 @@
               </v-overlay>
 
               <v-dialog fullscreen :value="LineOverlay" opacity="1" style="z-index: 11;">
-                <v-card tile flat class="mb-0 pb-0" justify="center" align="center">
+                <v-card tile flat class="mb-0 pb-0" height="100%">
 
                   <v-list-item class="pa-0 ma-0 ml-2 pt-2 mb-8">
                     <v-btn icon @click="LineOverlay = false">
@@ -198,7 +213,8 @@
                       <v-icon>mdi-close</v-icon>
                     </v-btn>
                   </v-list-item>
-                  <LineStyle :paragraphs="SlideBookList"></LineStyle>
+
+                  <LineStyle :paragraphs="SlideBookList" :title="CurrentBook.title"></LineStyle>
                   
                 </v-card>
               </v-dialog>
@@ -227,7 +243,7 @@
             </v-list-item>
             <v-list-item @click="OpenLine()">
               <v-list-item-icon>
-                <v-icon>mdi-timeline-text</v-icon>
+                <v-icon>mdi-format-line-weight</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Read as Lines</v-list-item-title>
             </v-list-item>
@@ -413,13 +429,5 @@ export default {
 <style scoped>
 .text-content {
   font-family: 'Montserrat', sans-serif !important; 
-}
-
-.highlighted {
-  color: red;
-}
-
-.text {
-    font-size: 2rem;
 }
 </style>
