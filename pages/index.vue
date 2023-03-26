@@ -22,7 +22,7 @@
             <v-btn-toggle background-color="#252525"
               borderless class="mx-1 d-flex flex-row justify-space-between"
             >
-              <v-btn value="left" class="px-4" width="33%" to="continue">
+              <v-btn value="left" class="px-4" width="33%" @click="ContinueList = true">
                 <span class="-hidden-sm-and-down text-caption" color="#784f91">Continue</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -42,7 +42,7 @@
 
               <v-spacer></v-spacer>
 
-              <v-btn value="right" class="px-4"  width="33%" to="toread">
+              <v-btn value="right" class="px-4"  width="33%" @click="ToReadList = true">
                 <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
                 <v-icon right :color="AppColorPalatte">
@@ -161,7 +161,7 @@
                   <v-icon>mdi-circle</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn rounded outlined flat x-large class="ml-4" width="80%">
+                <v-btn rounded outlined x-large class="ml-4" width="80%">
                   Next Book
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -337,6 +337,40 @@
         </v-list>
       </v-bottom-sheet>
 
+      <v-dialog fullscreen :value="ContinueList" opacity="1" style="z-index: 11;">
+        <v-card tile flat class="mb-0 pb-0" height="100%">
+
+          <v-list-item class="pa-0 ma-0 ml-2 pt-2">
+            <v-btn icon @click="ContinueList = false">
+              <v-spacer></v-spacer>
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-list-item>
+
+            <v-card-title class="text-h6 font-weight-light text-content">Continue Reading</v-card-title>
+
+            <ContinueBooks class="ma-0" :later="BooksListID" :books="ContinueBookList" @updateReadLater="updateList" @ReadData="OpenBook"></ContinueBooks>
+          
+        </v-card>
+      </v-dialog>
+
+      <v-dialog fullscreen :value="ToReadList" opacity="1" style="z-index: 11;">
+        <v-card tile flat class="mb-0 pb-0" height="100%">
+
+          <v-list-item class="pa-0 ma-0 ml-2 pt-2">
+            <v-btn icon @click="ToReadList = false">
+              <v-spacer></v-spacer>
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-list-item>
+
+            <v-card-title class="text-h6 font-weight-light text-content">Books Yet to Read</v-card-title>
+
+            <ToRead class="ma-0" :read="ReadBookListID" :later="BooksListID" :cbooks="ContinueBookListID" @updateReadLater="updateList" @ReadData="OpenBook"></ToRead>
+          
+        </v-card>
+      </v-dialog>
+
       </v-card>
     </v-col>
   </v-row>
@@ -365,6 +399,8 @@ export default {
         CurrentBookOpen: false,
         SlideOverLay: false,
         LineOverlay: false,
+        ContinueList: false,
+        ToReadList: false,
         ReadingModeSelect: false,
         ReadingMode: 0,
         ProgressMode: 2,

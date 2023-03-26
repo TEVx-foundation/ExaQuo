@@ -3,7 +3,7 @@
         <v-list-item class="mx-0">
             <div class="text-content">My Books</div>
             <v-spacer></v-spacer>
-            <a class="text-content text-decoration-none" style="color: #f9784b;">See More</a>
+            <a class="text-content text-decoration-none" style="color: #f9784b;" @click="AllBooks = true">See More</a>
         </v-list-item>
 
         <v-card tile flat class="mx-auto my-8" color="transparent" v-if="data.length === 0">
@@ -15,7 +15,7 @@
             class="pa-0"
             active-class="success"
             >
-            <v-slide-item v-for="(item, i) in data" :key="i">
+            <v-slide-item v-for="(item, i) in data.slice(0, 5)" :key="i">
                 <v-card
                 class="ma-2 text-center"
                 height="180"
@@ -62,6 +62,33 @@
         </v-card>
         </v-bottom-sheet>
 
+        <v-bottom-sheet v-model="AllBooks">
+            <v-card flat tileclass="ma-0 pa-0 overflow-auto">
+                <v-list>
+                    <v-subheader class="text-content text-body-1">Read Later</v-subheader>
+
+                    <v-list-item class="mx-2 px-0 mt-4">
+                        <v-text-field dense prepend-inner-icon="mdi-magnify" clearable color="blue"
+                        solo label="Search Books" autofocus v-model="search"
+                        ></v-text-field>
+                    </v-list-item>
+
+                    <v-list-item
+                    v-for="(item, i) in data"
+                    :key="i"
+                    @click="BookBar(item)"
+                    >
+                    <v-list-item-avatar>
+                        <v-avatar size="32px" tile >
+                        <img src="book-open.png">
+                        </v-avatar>
+                    </v-list-item-avatar>
+                    <v-list-item-title class="text-content text-body-1">{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-card>
+        </v-bottom-sheet>
+
     </v-card>
 </template>
   
@@ -74,6 +101,8 @@
           MyBooksSlide: null,
           SelectedBook: null,
           BookBarValue: false,
+          AllBooks: false,
+          search: null,
           // BooksList: [],
         }
       },
@@ -105,22 +134,6 @@
         SendReadData(e) {
             this.$emit('ReadData', e)
         },
-
-        /* getMyBooks() {
-            if (process.browser) {
-                if (localStorage.getItem("ExaQuoPersonalBooks") === null) {
-                    localStorage.setItem("ExaQuoPersonalBooks", this.BooksList)
-                } else {
-                    this.BooksList = localStorage.getItem("ExaQuoPersonalBooks")
-                }
-            }
-        },
-
-        updateList(e) {
-            alert("Data Changed")
-            this.BooksList.push(e)
-            localStorage.setItem("ExaQuoPersonalBooks", this.BooksList)
-        } */
       }, 
 
       mounted() {

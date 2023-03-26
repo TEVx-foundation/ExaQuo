@@ -6,6 +6,9 @@
       fixed
       app
     >
+
+    <v-img src="app-logo.png" class="mx-auto my-8" contain max-width="150"></v-img>
+
       <v-list shaped>
         <v-list-item
           v-for="(item, i) in items"
@@ -22,6 +25,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2 mx-auto">
+          <v-card-text>ExaQuo - Beta Release 1.1</v-card-text>
+        </div>
+      </template>
+
     </v-navigation-drawer>
 
     <!-- v-app-bar flat
@@ -51,7 +61,7 @@
         <v-icon :color="themeColor">mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn class="py-6" height="100%">
+      <v-btn class="py-6" height="100%" @click="DevSnackbar = true">
         <v-icon :color="themeColor">mdi-bell-outline</v-icon>
       </v-btn>
 
@@ -59,6 +69,22 @@
         <v-icon :color="themeColor">mdi-square-rounded-badge-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
+
+    <v-snackbar tile flat
+      v-model="DevSnackbar"
+    >
+      This feature is under development
+
+      <template v-slot:actions>
+        <v-btn
+          color="pink"
+          variant="text"
+          @click="DevSnackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 
   </v-app>
 </template>
@@ -71,6 +97,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      DevSnackbar: false,
       themeColor: '#f9784b',
       bottomNav: 0,
       items: [
@@ -83,7 +110,12 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'About',
           to: '/custom'
-        }
+        },
+        {
+          icon: 'mdi-dev-to',
+          title: 'Developers',
+          to: '/developers'
+        },
       ],
       right: true,
       title: 'ExaQuo'
