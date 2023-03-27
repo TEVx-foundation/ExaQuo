@@ -17,15 +17,15 @@
                     </v-btn>
                 </v-toolbar>
 
-                <v-card tile flat class="mx-auto pb-4">
+                <v-card tile flat class="mx-auto pb-4" color="transparent">
                   
-                  <v-card class="mx-auto"
+                  <v-card class="mx-auto" color="transparent"
                     max-width="374" tile flat
                   >
 
                   <v-card-title class="mt-4">
                     <v-avatar size="60">
-                      <img alt="tevx" src="TEVx.png">
+                      <img alt="tevx" src="TEVx-transparent.png">
                     </v-avatar>
                     <p class="ml-3 mt-5 text-h6 font-weight-light">
                       Team Vertex Foundation
@@ -59,7 +59,7 @@
                   <v-card color="transparent" tile flat>
                     <v-img
                       max-width="100" class="mx-auto mt-4 mb-8 pb-8"
-                      src="Sykaa-logo.png" contain
+                      src="Sykaa-ico-logo.png" contain
                     ></v-img>
                   </v-card>
 

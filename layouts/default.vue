@@ -7,7 +7,7 @@
       app
     >
 
-    <v-img src="app-logo.png" class="mx-auto my-8" contain max-width="150"></v-img>
+    <v-img src="app-logo-white.png" class="mx-auto my-8" contain max-width="150"></v-img>
 
       <v-list shaped>
         <v-list-item
@@ -73,17 +73,16 @@
     <v-snackbar tile flat
       v-model="DevSnackbar"
     >
-      This feature is under development
-
-      <template v-slot:actions>
-        <v-btn
-          color="pink"
-          variant="text"
+    <v-list-item class="ma-0 pa-0">
+      Notification feature is currently under development
+        <v-btn icon
+          color="white"
+          variant="text" class="ma-0 ml-2"
           @click="DevSnackbar = false"
         >
-          Close
+          <v-icon>mdi-close</v-icon>
         </v-btn>
-      </template>
+      </v-list-item>
     </v-snackbar>
 
   </v-app>
@@ -109,7 +108,7 @@ export default {
         {
           icon: 'mdi-chart-bubble',
           title: 'About',
-          to: '/custom'
+          to: '/about'
         },
         {
           icon: 'mdi-dev-to',

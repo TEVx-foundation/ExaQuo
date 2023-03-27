@@ -16,6 +16,7 @@
             active-class="success"
             >
             <v-slide-item v-for="(item, i) in data.slice(0, 5)" :key="i">
+
                 <v-card
                 class="ma-2 text-center"
                 height="180"
@@ -28,6 +29,11 @@
                     <div class="text-content font-weight-bold text-body-2 mx-2" v-text="item.title"></div>
 
                 </v-card>
+
+                <!-- v-img src="https://source.unsplash.com/random/390x540/?night" width="130" height="180" class="ma-2 text-center">
+                    <div class="text-content font-weight-bold text-body-2 mx-2" v-text="item.title"></div>
+                </v-img -->
+
             </v-slide-item>
         </v-slide-group>
 

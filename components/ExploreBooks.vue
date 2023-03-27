@@ -31,7 +31,7 @@
                         bordered
                         color="#f9784b"
                         icon="mdi-progress-clock"
-                        overlap
+                        overlap large
                     >
                         <v-avatar size="100" class="my-2 mt-6" rounded>
                             <v-img src="book-open.png"></v-img>
