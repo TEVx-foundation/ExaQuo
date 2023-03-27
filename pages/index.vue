@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-card tile flat color="transparent">
+      <v-card tile flat color="transparent" class="full granimate">
 
         <v-card color="transparent" class="ma-0" tile flat>
 
@@ -563,5 +563,20 @@ export default {
 
 .force-captilize {
   text-transform: capitalize !important;
+}
+
+.granimate {
+  background-color: #2ecc71;
+  animation: hue 11s linear 0s infinite reverse;
+}
+.granimate::before {
+  background: linear-gradient(105deg, rgba(255, 190, 0, 0), #ffbe00);
+  animation: hue 12s linear 1s infinite;
+}
+
+@keyframes hue {
+  to {
+    filter: hue-rotate(1turn);
+  }
 }
 </style>

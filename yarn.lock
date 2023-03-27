@@ -7928,6 +7928,11 @@
     "neo-async" "^2.6.2"
     "schema-utils" "^3.0.0"
 
+"three@^0.150.1":
+  "integrity" "sha512-5C1MqKUWaHYo13BX0Q64qcdwImgnnjSOFgBscOzAo8MYCzEtqfQqorEKMcajnA3FHy1yVlIe9AmaMQ0OQracNA=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.150.1.tgz"
+  "version" "0.150.1"
+
 "through@^2.3.6":
   "integrity" "sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg=="
   "resolved" "https://registry.npmjs.org/through/-/through-2.3.8.tgz"

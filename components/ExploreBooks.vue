@@ -85,16 +85,18 @@
         </v-card>
 
 
-        <v-list-item class="ma-0 pa-2 pt-8 pb-4" v-if="nextPagetoken !== null || nextPagetoken !== undefined">
-        <v-btn icon>
-            <v-icon>mdi-circle</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn rounded outlined large class="ml-4" width="80%" @click="getNextList()" :loading="nextLoading">
-            Load More
-        </v-btn>
-        <v-spacer></v-spacer>
-        </v-list-item>
+        <div v-if="errorMessage !== null">
+            <v-list-item class="ma-0 pa-2 pt-8 pb-4" v-if="nextPagetoken !== null || nextPagetoken !== undefined">
+            <v-btn icon>
+                <v-icon>mdi-circle</v-icon>
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn rounded outlined large class="ml-4" width="80%" @click="getNextList()" :loading="nextLoading">
+                Load More
+            </v-btn>
+            <v-spacer></v-spacer>
+            </v-list-item>
+        </div>
 
         </section>
 
