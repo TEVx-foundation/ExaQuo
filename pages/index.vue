@@ -371,6 +371,16 @@
         </v-card>
       </v-dialog>
 
+      <v-dialog
+        v-model="BookDialog"
+        persistent
+        max-width="290"
+      >
+        <v-card tile flat loading>
+          <v-img src="book-animation.gif"></v-img>
+        </v-card>
+      </v-dialog>
+
       </v-card>
     </v-col>
   </v-row>
@@ -401,6 +411,7 @@ export default {
         LineOverlay: false,
         ContinueList: false,
         ToReadList: false,
+        BookDialog: false,
         ReadingModeSelect: false,
         ReadingMode: 0,
         ProgressMode: 2,
@@ -478,9 +489,18 @@ export default {
       },
 
       OpenBook(e) {
+        this.BookDialog = true
         this.CurrentBook = e
-        this.CurrentBookOpen = true
-        this.checkStatus(e)
+        
+
+        setTimeout(() => {
+          this.BookDialog = false
+          this.CurrentBookOpen = true
+          this.checkStatus(e)
+        }, 1500);
+
+        // this.CurrentBookOpen = true
+        // this.checkStatus(e)
       },
 
       contentStrip(content, e = 0) {
