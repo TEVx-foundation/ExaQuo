@@ -17,7 +17,7 @@
             >
             <v-slide-item v-for="(item, i) in data.slice(0, 5)" :key="i">
 
-            <v-card tile flat height="180" width="130" class="ma-4 pa-0" color="red" opacity="0.5">
+            <v-card tile flat height="180" width="130" class="ma-4 pa-0 card-background-force" color="red" opacity="0.5">
 
                 <v-card
                 class="ma-1 text-center"
@@ -167,5 +167,23 @@
 <style scoped>
 .text-content {
   font-family: 'Montserrat', sans-serif !important; 
+}
+
+.card-background-force {
+	background: linear-gradient(-45deg, #D49B54, #C74B50, #712B75, #FFBD69) !important;
+	background-size: 400% 400% !important;
+	animation: gradient 15s ease infinite !important;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50% !important;
+	}
+	50% {
+		background-position: 100% 50%  !important;
+	}
+	100% {
+		background-position: 0% 50% !important;
+	}
 }
 </style>

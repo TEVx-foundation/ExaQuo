@@ -645,7 +645,7 @@ export default {
   animation: hue 11s linear 0s infinite reverse;
 }
 .granimate::before {
-  background: linear-gradient(105deg, rgba(255, 190, 0, 0), #C74B50);
+  background: linear-gradient(105deg, rgba(97, 85, 49, 0), #C74B50);
   animation: hue 12s linear 1s infinite;
 }
 
