@@ -62,7 +62,7 @@
       </v-btn>
 
       <v-btn class="py-6" height="100%" @click="DevSnackbar = true">
-        <v-icon :color="themeColor">mdi-bell-outline</v-icon>
+        <v-icon :color="themeColor">mdi-label-multiple</v-icon>
       </v-btn>
 
       <v-btn @click.stop="drawer = !drawer" class="py-6" height="100%">
@@ -74,7 +74,7 @@
       v-model="DevSnackbar"
     >
     <v-list-item class="ma-0 pa-0">
-      Notification feature is currently under development
+      Labelling feature is currently under development
         <v-btn icon
           color="white"
           variant="text" class="ma-0 ml-2"

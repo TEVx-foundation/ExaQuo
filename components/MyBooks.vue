@@ -20,7 +20,7 @@
             <v-card tile flat height="180" width="130" class="ma-4 pa-0" color="red" opacity="0.5">
 
                 <v-card
-                class="ma-2 text-center"
+                class="ma-1 text-center"
                 height="180"
                 width="130"
                 @click="BookBar(item)"
@@ -99,6 +99,14 @@
             </v-card>
         </v-bottom-sheet>
 
+        <v-snackbar tile flat color="transparent"
+        v-model="MarkStatus" timeout="1000"
+        >
+        <v-list-item class="ma-0 pa-0 py-n4">
+            <v-img src="success.gif" width="50" contain></v-img>
+        </v-list-item>
+        </v-snackbar>
+
     </v-card>
 </template>
   
@@ -112,6 +120,7 @@
           SelectedBook: null,
           BookBarValue: false,
           AllBooks: false,
+          MarkStatus: false,
           search: null,
           // BooksList: [],
         }
@@ -130,6 +139,8 @@
 
         RemoveBook(e) {
             // var Manipulated = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
+
+            this.MarkStatus = true
 
             var Manipulated = JSON.parse(localStorage.getItem("PersonalReadListID") || '[]')
             Manipulated = Manipulated.filter(el => el !== e.id)

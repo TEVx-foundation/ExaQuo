@@ -8,7 +8,7 @@
         </v-card-text>
     </v-card>
 
-    <div class="text mt-8">
+    <v-card tile flat class="text mt-8 overflow-auto" id="ScrollContent">
       <div v-for="(line, index) in paragraphs" :key="index">
         <p v-if="ActiveIndex == index + 1" class="line text-content" id="ScrollIndex" ref="ScrollIndex">{{ line }}.</p>
         <p v-else>
@@ -18,7 +18,7 @@
 
         </p>
       </div>
-    </div>
+    </v-card>
 
     <v-card tile flat class="spacer"></v-card>
   </v-card>
@@ -64,8 +64,11 @@ props: ['paragraphs', 'title'],
         NextLine() {
             if (this.ActiveIndex < this.paragraphs.length - 1) {
                 this.ActiveIndex++
-                document.getElementById('ScrollIndex').scrollIntoView({behavior: 'smooth', inline: 'center'})
-                document.getElementById('ScrollIndex').scrollTop = 150
+                // document.getElementById('ScrollIndex').scrollIntoView({behavior: 'smooth', inline: 'center'})
+                // document.getElementById('ScrollIndex').scrollTop = 150
+
+                // document.getElementById('ScrollIndex').style.marginTop='-50px';
+                window.location.href = "#ScrollIndex";
             }
         },
 
@@ -73,8 +76,9 @@ props: ['paragraphs', 'title'],
             if (this.ActiveIndex > 0) {
                 this.ActiveIndex--
                 //$vuetify.goTo('#ScrollIndex', this.options)
-                document.getElementById('ScrollIndex').scrollIntoView({ behavior: "smooth", block: "center", inline: "center" })
+                // document.getElementById('ScrollIndex').scrollIntoView({ behavior: "smooth", block: "center", inline: "center" })
                 // document.getElementById('ScrollIndex').scrollTop = 150
+                window.location.href = "#ScrollIndex";
             }
         },
     },

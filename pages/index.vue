@@ -175,18 +175,11 @@
                 <v-spacer></v-spacer>
               </v-list-item>
 
-              <v-snackbar tile flat
-                v-model="MarkStatus"
+              <v-snackbar tile flat color="transparent"
+                v-model="MarkStatus" timeout="1000"
               >
-              <v-list-item class="ma-0 pa-0">
-                Book Progress has been updated
-                  <v-btn icon
-                    color="white"
-                    variant="text" class="ma-0 ml-2"
-                    @click="MarkStatus = false"
-                  >
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
+                <v-list-item class="ma-0 pa-0 py-n4">
+                  <v-img src="success.gif" width="50" contain></v-img>
                 </v-list-item>
               </v-snackbar>
               
@@ -503,6 +496,7 @@ export default {
           localStorage.setItem("PersonalCompleteListID", JSON.stringify(this.ReadBookListID))
         }
 
+        this.BookProgress = false
         this.MarkStatus = true
       },
 
@@ -522,6 +516,7 @@ export default {
           localStorage.setItem("PersonalContinueListID", JSON.stringify(this.ContinueBookListID))
         }
 
+        this.BookProgress = false
         this.MarkStatus = true
       },
 
@@ -646,11 +641,11 @@ export default {
 }
 
 .granimate {
-  background-color: #2ecc71;
+  background-color: #774360;
   animation: hue 11s linear 0s infinite reverse;
 }
 .granimate::before {
-  background: linear-gradient(105deg, rgba(255, 190, 0, 0), #ffbe00);
+  background: linear-gradient(105deg, rgba(255, 190, 0, 0), #C74B50);
   animation: hue 12s linear 1s infinite;
 }
 
