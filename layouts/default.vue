@@ -28,7 +28,7 @@
 
       <template v-slot:append>
         <div class="pa-2 mx-auto">
-          <v-card-text>ExaQuo - Beta Release 1.1</v-card-text>
+          <v-card-text>ExaQuo - Beta Release 2.3</v-card-text>
         </div>
       </template>
 

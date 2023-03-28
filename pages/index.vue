@@ -1,22 +1,30 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-card tile flat color="transparent" class="full granimate">
+      <v-card tile flat color="transparent" class="granimate">
 
         <v-card color="transparent" class="ma-0" tile flat>
 
-          <v-list-item class="ma-0 pa-0">
-            <v-card-text>
-              <div class="text-content">{{ greetings }}</div>
-              <p class="text-body-1 text--primary text-content mt-1">
-                Stories to your fingertips
-              </p>
-            </v-card-text>
+          <v-card tile flat class="ma-0 pa-0" max-height="40vh" color="transparent">
+            <v-list-item class="ma-0 pa-0">
+              <v-card-text>
+                <div class="greeting-text text-h6">{{ greetings }}</div>
+              </v-card-text>
+              <v-spacer></v-spacer>
+              <v-btn icon :color="AppColorPalatte" @click="AppColor = true"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
+            </v-list-item>
 
-            <v-spacer></v-spacer>
+            <v-list-item class="ma-0 pa-0" align="center" justify="center">
+              <v-card-text class="my-0 py-0 mt-n4">
+                <div class="force-comfortaa">ExaQuo brings stories to your fingertips.</div>
+              </v-card-text>
+              <v-spacer></v-spacer>
+              <v-card tile flat class="mx-2 my-0 pa-0" color="transparent" width="55vw" height="55vw">
+                <v-img src="reading.png" max-width="50vw" max-height="50vw" contain></v-img>
+              </v-card>
+            </v-list-item>
+          </v-card>
 
-            <v-btn icon :color="AppColorPalatte" @click="AppColor = true"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
-          </v-list-item>
 
             <center>
             <v-btn-toggle background-color="#252525"
@@ -337,6 +345,12 @@
         </v-list>
       </v-bottom-sheet>
 
+      <v-bottom-sheet v-model="SuccessfulLater">
+        <v-card tile flat class="ma-0 pa-0 text-center justify-center" color="#1e6cc7" loading dark>
+          <v-img :src="TempImagery" height="200px" contain></v-img>
+        </v-card>
+      </v-bottom-sheet>
+
       <v-dialog fullscreen :value="ContinueList" opacity="1" style="z-index: 11;">
         <v-card tile flat class="mb-0 pb-0" height="100%">
 
@@ -391,6 +405,7 @@ export default {
   name: 'IndexPage',
   data () {
       return {
+        TempImagery: '',
         category: null,
         greetings: "",
         CurrentBook: null,
@@ -413,10 +428,11 @@ export default {
         ToReadList: false,
         BookDialog: false,
         ReadingModeSelect: false,
+        
         ReadingMode: 0,
         ProgressMode: 2,
         ReadColorMode: 0,
-
+        SuccessfulLater: false,
         ReadBookList: [],
         ReadBookListID: [],
 
@@ -441,6 +457,17 @@ export default {
           this.BooksListID.push(e.id)
           localStorage.setItem("PersonalReadList", JSON.stringify(this.BooksList))
           localStorage.setItem("PersonalReadListID", JSON.stringify(this.BooksListID))
+          this.TempImagery = 'book-stack.gif'
+          this.SuccessfulLater = true
+
+          setTimeout(() => {
+            this.TempImagery = 'success.gif'
+          }, 1000);
+
+          setTimeout(() => {
+            this.SuccessfulLater = false
+          }, 2000);
+
         }
       },
 
@@ -581,8 +608,21 @@ export default {
   font-family: 'Montserrat', sans-serif !important; 
 }
 
+.greeting-text {
+  font-family: 'Pacifico', cursive !important;
+}
+
+.force-comfortaa {
+  font-family: 'Comfortaa', cursive !important;
+  font-size: 4.5vw !important;
+}
+
 .force-captilize {
   text-transform: capitalize !important;
+}
+
+.forced-background {
+  background-color: #121212 !important;
 }
 
 .granimate {
