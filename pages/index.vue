@@ -31,31 +31,31 @@
               borderless class="mx-1 d-flex flex-row justify-space-between"
             >
               <v-btn value="left" class="px-4" width="33%" @click="ContinueList = true">
-                <span class="-hidden-sm-and-down text-caption" color="#784f91">Continue</span>
 
-                <v-icon right :color="AppColorPalatte">
+                <v-icon left :color="AppColorPalatte" class="ml-1">
                   mdi-filter-variant
                 </v-icon>
+                <span class="-hidden-sm-and-down text-caption" color="#784f91">Continue</span>
               </v-btn>
 
               <v-spacer></v-spacer>
 
               <v-btn value="center" class="px-5" width="33%">
-                <span class="-hidden-sm-and-down text-caption">Saved</span>
 
-                <v-icon right :color="AppColorPalatte">
+                <v-icon left :color="AppColorPalatte">
                   mdi-book
                 </v-icon>
+                <span class="-hidden-sm-and-down text-caption">Saved</span>
               </v-btn>
 
               <v-spacer></v-spacer>
 
               <v-btn value="right" class="px-4"  width="33%" @click="ToReadList = true">
-                <span class="-hidden-sm-and-down text-caption">To-Read</span>
 
-                <v-icon right :color="AppColorPalatte">
+                <v-icon left :color="AppColorPalatte">
                   mdi-moon-new
                 </v-icon>
+                <span class="-hidden-sm-and-down text-caption">To-Read</span>
               </v-btn>
             </v-btn-toggle>
           </center>
@@ -174,6 +174,21 @@
                 </v-btn>
                 <v-spacer></v-spacer>
               </v-list-item>
+
+              <v-snackbar tile flat
+                v-model="MarkStatus"
+              >
+              <v-list-item class="ma-0 pa-0">
+                Book Progress has been updated
+                  <v-btn icon
+                    color="white"
+                    variant="text" class="ma-0 ml-2"
+                    @click="MarkStatus = false"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-list-item>
+              </v-snackbar>
               
               <v-overlay :value="SlideOverLay" opacity="1" style="z-index: 11;">
 
@@ -428,6 +443,7 @@ export default {
         ToReadList: false,
         BookDialog: false,
         ReadingModeSelect: false,
+        MarkStatus: false,
         
         ReadingMode: 0,
         ProgressMode: 2,
@@ -486,6 +502,8 @@ export default {
           localStorage.setItem("PersonalCompleteList", JSON.stringify(this.ReadBookList))
           localStorage.setItem("PersonalCompleteListID", JSON.stringify(this.ReadBookListID))
         }
+
+        this.MarkStatus = true
       },
 
       AddtoContinueList() {
@@ -503,6 +521,8 @@ export default {
           localStorage.setItem("PersonalContinueList", JSON.stringify(this.ContinueBookList))
           localStorage.setItem("PersonalContinueListID", JSON.stringify(this.ContinueBookListID))
         }
+
+        this.MarkStatus = true
       },
 
       checkStatus(e) {
